@@ -16,7 +16,7 @@ public class AttrDrawableLeft extends AttrType {
         Drawable drawable = getDrawable(view.getContext(), resName);
         if (drawable != null && view instanceof TextView) {
             Drawable[] compoundDrawables = ((TextView) view).getCompoundDrawables();
-            ((TextView) view).setCompoundDrawables(drawable, compoundDrawables[1], compoundDrawables[2], compoundDrawables[3]);
+            ((TextView) view).setCompoundDrawablesWithIntrinsicBounds(drawable, compoundDrawables[1], compoundDrawables[2], compoundDrawables[3]);
         }
     }
 

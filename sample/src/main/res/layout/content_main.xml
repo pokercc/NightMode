@@ -42,7 +42,14 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/auto_image"
+            android:text="drawableLeft"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
             android:text="ImageView\nsrc\n=>"
             android:textColor="@color/colorPrimaryDark" />
 
