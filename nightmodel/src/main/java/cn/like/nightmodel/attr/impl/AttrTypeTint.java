@@ -27,6 +27,7 @@ public class AttrTypeTint extends AttrType {
         }
     }
 
+
     @Override
     public String getResourceName(String attrValue, Resources resources) {
         return getIntResourceName(attrValue, resources);

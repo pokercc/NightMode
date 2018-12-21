@@ -4,74 +4,102 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@color/colorAccent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="cn.like.sample.MainActivity"
-    android:background="@color/colorAccent"
     tools:showIn="@layout/activity_main">
+
     <ImageView
         android:id="@+id/vector"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        app:srcCompat="@drawable/ic_arrow"/>
+        app:srcCompat="@drawable/ic_arrow" />
+
     <LinearLayout
         android:id="@+id/linear_layout"
-        android:layout_below="@id/vector"
         android:layout_width="match_parent"
         android:layout_height="100dp"
+        android:layout_below="@id/vector"
         android:orientation="horizontal">
+
         <TextView
-            android:text="TextView\nbackground\n=>"
             android:layout_width="wrap_content"
-            android:textColor="@color/colorPrimaryDark"
-            android:layout_height="100dp"/>
+            android:layout_height="100dp"
+            android:text="TextView\nbackground\n=>"
+            android:textColor="@color/colorPrimaryDark" />
+
         <TextView
             android:id="@+id/text"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:textColor="@color/colorPrimaryDark"
             android:background="@drawable/auto_image"
-            android:text="I am TextView!" />
+            android:text="I am TextView!"
+            android:textColor="@color/colorPrimaryDark" />
+
         <TextView
-            android:text="ImageView\nsrc\n=>"
             android:layout_width="wrap_content"
-            android:textColor="@color/colorPrimaryDark"
-            android:layout_height="100dp"/>
+            android:layout_height="100dp"
+            android:text="ImageView\nsrc\n=>"
+            android:textColor="@color/colorPrimaryDark" />
+
         <ImageView
             android:id="@+id/image_view"
-            android:layout_below="@id/text"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/auto_image"/>
+            android:layout_below="@id/text"
+            android:src="@drawable/auto_image" />
     </LinearLayout>
 
     <Button
         android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@id/linear_layout"
         android:text="change night model"
-        android:textColor="@color/colorPrimaryDark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:textColor="@color/colorPrimaryDark" />
+
     <Button
         android:id="@+id/open"
-        android:layout_below="@id/button"
-        android:text="newActivity"
         style="@style/TextStyle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@id/button"
+        android:text="newActivity" />
+
     <Button
         android:id="@+id/drawble"
-        android:layout_below="@id/open"
-        android:text="my background is selector"
-        android:background="@drawable/background"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@id/open"
+        android:background="@drawable/background"
+        android:text="my background is selector" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="这是attr引用属性(白天黄色，晚上蓝色)"
+            android:textColor="?attr/pokerccTextColor1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="这是attr引用值(白天黄色，晚上蓝色)"
+            android:textColor="?attr/pokerccTextColor2" />
+    </LinearLayout>
+
+
     <ListView
         android:id="@+id/list_view"
-        android:layout_below="@+id/drawble"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/drawble" />
 </RelativeLayout>

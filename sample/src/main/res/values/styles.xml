@@ -11,7 +11,15 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="pokerccTextColor1">@color/colorYellow</item>
+        <item name="pokerccTextColor2">#ffff00</item>
     </style>
+
+    <style name="AppTheme.NoActionBar.Night">
+        <item name="pokerccTextColor1">@color/colorGreen</item>
+        <item name="pokerccTextColor2">#00ff00</item>
+    </style>
+
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

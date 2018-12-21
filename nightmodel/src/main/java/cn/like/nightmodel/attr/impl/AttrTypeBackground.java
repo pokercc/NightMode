@@ -26,6 +26,12 @@ public class AttrTypeBackground extends AttrType {
     }
 
     @Override
+    public void applyColor(View view, int color) {
+        super.applyColor(view, color);
+        view.setBackgroundColor(color);
+    }
+
+    @Override
     public String getResourceName(String attrValue, Resources resources) {
         return getIntResourceName(attrValue, resources);
     }

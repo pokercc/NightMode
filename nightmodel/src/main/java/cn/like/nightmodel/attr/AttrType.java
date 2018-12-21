@@ -3,6 +3,7 @@ package cn.like.nightmodel.attr;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorInt;
 import android.view.View;
 
 /**
@@ -13,23 +14,31 @@ public abstract class AttrType {
     protected static final String DEFTYPE_COLOR = "color";
     protected static final String DEFTYPE_STYLE = "style";
 
-    String attrType;
+    private final String attrType;
+
     public AttrType(String attrType) {
         this.attrType = attrType;
     }
 
-    public String getAttrType()
-    {
+    public String getAttrType() {
         return attrType;
     }
 
-    public abstract  void apply(View view, String resName);
+    public abstract void apply(View view, String resName);
 
-    public abstract String getResourceName(String attrValue, Resources resources);
+    public void applyColor(View view, @ColorInt int color) {
 
-    protected String getIntResourceName(String attrValue, Resources resources) {
+    }
+
+
+    @Deprecated
+    public String getResourceName(String attrValue, Resources resources) {
+        return null;
+    }
+
+    public String getIntResourceName(String attrValue, Resources resources) {
         int id = Integer.parseInt(attrValue.substring(1));
-        if (id==0) return null;
+        if (id == 0) return null;
         return resources.getResourceEntryName(id);
     }
 
@@ -37,10 +46,10 @@ public abstract class AttrType {
         Drawable drawable = null;
         Resources resources = context.getResources();
         try {
-            drawable = resources.getDrawable(resources.getIdentifier(resName, DEFTYPE_DRAWABLE,  context.getPackageName()));
+            drawable = resources.getDrawable(resources.getIdentifier(resName, DEFTYPE_DRAWABLE, context.getPackageName()));
         } catch (Resources.NotFoundException e) {
             try {
-                drawable = resources.getDrawable(resources.getIdentifier(resName, DEFTYPE_COLOR,  context.getPackageName()));
+                drawable = resources.getDrawable(resources.getIdentifier(resName, DEFTYPE_COLOR, context.getPackageName()));
             } catch (Resources.NotFoundException e2) {
             }
         }

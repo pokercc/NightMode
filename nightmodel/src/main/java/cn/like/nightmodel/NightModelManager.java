@@ -85,6 +85,7 @@ public class NightModelManager {
 
     /**
      * this method should be called in Activity onDestroy method
+     *
      * @param activity
      */
     public void detach(AppCompatActivity activity) {
@@ -95,7 +96,7 @@ public class NightModelManager {
         return PersistenceUtils.isNightModel(context);
     }
 
-    public void applyNightModel(AppCompatActivity activity){
+    public void applyNightModel(AppCompatActivity activity) {
         invokeResources(activity);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         activity.getDelegate().applyDayNight();
@@ -138,7 +139,7 @@ public class NightModelManager {
     private void applyNewModel() {
         modelChanged = true;
         int count = attrViewMaps.size();
-        for (int i=0; i<count; i++) {
+        for (int i = 0; i < count; i++) {
             List<AttrView> attrViews = attrViewMaps.valueAt(i);
             for (AttrView attrView : attrViews) {
                 attrView.apply();
@@ -176,7 +177,7 @@ public class NightModelManager {
                 return result;
 
             if (result == null) {
-                result = createViewFromTag((Context)args[2], (String)args[1], (AttributeSet)args[3]);
+                result = createViewFromTag((Context) args[2], (String) args[1], (AttributeSet) args[3]);
             }
 
             if (attrs.size() > 0) {
@@ -252,6 +253,7 @@ public class NightModelManager {
 
     /**
      * 添加夜间模式切换监听
+     *
      * @param listener
      */
     public void addModelChangeListener(ModelChangeListener listener) {
@@ -260,6 +262,7 @@ public class NightModelManager {
 
     /**
      * 移除夜间模式切换监听
+     *
      * @param listener
      */
     public void removeModelChangeListener(ModelChangeListener listener) {

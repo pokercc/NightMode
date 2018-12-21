@@ -62,8 +62,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void changeNightModel() {
         if (NightModelManager.getInstance().isCurrentNightModel(this)) {
+            setTheme(R.style.AppTheme_NoActionBar);
             NightModelManager.getInstance().applyDayModel(this);
         } else {
+            setTheme(R.style.AppTheme_NoActionBar_Night);
             NightModelManager.getInstance().applyNightModel(this);
         }
     }
