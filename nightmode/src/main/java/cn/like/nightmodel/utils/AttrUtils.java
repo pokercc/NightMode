@@ -1,6 +1,5 @@
 package cn.like.nightmodel.utils;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -62,7 +61,7 @@ public class AttrUtils {
         return attrTypeHashMap.get(attrName);
     }
 
-    public static List<Attr> getNightModelAttr(Object[] args,  Resources resources) {
+    public static List<Attr> getNightModelAttr(Object[] args, Resources resources) {
         List<Attr> nightModelAttrs = new ArrayList<>();
         if (args != null && args.length > 0) {
             for (Object obj : args) {
