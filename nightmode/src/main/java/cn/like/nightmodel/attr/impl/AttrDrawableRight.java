@@ -6,9 +6,9 @@ import android.widget.TextView;
 
 import cn.like.nightmodel.attr.AttrType;
 
-public class AttrDrawRight extends AttrType {
-    public AttrDrawRight() {
-        super("drawRight");
+public class AttrDrawableRight extends AttrType {
+    public AttrDrawableRight() {
+        super("drawableRight");
     }
 
     @Override

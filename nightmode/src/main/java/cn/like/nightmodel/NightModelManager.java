@@ -1,6 +1,7 @@
 package cn.like.nightmodel;
 
 import android.content.Context;
+import android.os.Build;
 import android.support.v4.util.ArrayMap;
 import android.support.v4.util.SparseArrayCompat;
 import android.support.v4.view.LayoutInflaterCompat;
@@ -8,11 +9,13 @@ import android.support.v4.view.LayoutInflaterFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
-import java.lang.ref.SoftReference;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
@@ -27,6 +30,8 @@ import cn.like.nightmodel.attr.AttrType;
 import cn.like.nightmodel.attr.AttrView;
 import cn.like.nightmodel.utils.AttrUtils;
 import cn.like.nightmodel.utils.PersistenceUtils;
+
+import static cn.like.nightmodel.R.*;
 
 /**
  * Created by like on 16/7/20.
@@ -104,6 +109,8 @@ public class NightModelManager {
         PersistenceUtils.setNightModel(activity.getApplicationContext(), true);
         ModelChangeManager.getInstance().notifyChange(true);
     }
+
+
 
     public void applyDayModel(AppCompatActivity activity) {
         invokeResources(activity);

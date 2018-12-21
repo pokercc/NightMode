@@ -6,9 +6,9 @@ import android.widget.TextView;
 
 import cn.like.nightmodel.attr.AttrType;
 
-public class AttrDrawTop extends AttrType {
-    public AttrDrawTop() {
-        super("drawTop");
+public class AttrDrawableLeft extends AttrType {
+    public AttrDrawableLeft() {
+        super("drawableLeft");
     }
 
     @Override
@@ -16,7 +16,7 @@ public class AttrDrawTop extends AttrType {
         Drawable drawable = getDrawable(view.getContext(), resName);
         if (drawable != null && view instanceof TextView) {
             Drawable[] compoundDrawables = ((TextView) view).getCompoundDrawables();
-            ((TextView) view).setCompoundDrawables(compoundDrawables[0], drawable, compoundDrawables[2], compoundDrawables[3]);
+            ((TextView) view).setCompoundDrawables(drawable, compoundDrawables[1], compoundDrawables[2], compoundDrawables[3]);
         }
     }
 

@@ -11,10 +11,10 @@ import java.util.List;
 
 import cn.like.nightmodel.attr.Attr;
 import cn.like.nightmodel.attr.AttrType;
-import cn.like.nightmodel.attr.impl.AttrDrawBottom;
-import cn.like.nightmodel.attr.impl.AttrDrawLeft;
-import cn.like.nightmodel.attr.impl.AttrDrawRight;
-import cn.like.nightmodel.attr.impl.AttrDrawTop;
+import cn.like.nightmodel.attr.impl.AttrDrawableBottom;
+import cn.like.nightmodel.attr.impl.AttrDrawableLeft;
+import cn.like.nightmodel.attr.impl.AttrDrawableRight;
+import cn.like.nightmodel.attr.impl.AttrDrawableTop;
 import cn.like.nightmodel.attr.impl.AttrTypeBackground;
 import cn.like.nightmodel.attr.impl.AttrTypeImageSrc;
 import cn.like.nightmodel.attr.impl.AttrTypeImageSrcCompat;
@@ -37,10 +37,10 @@ public class AttrUtils {
             new AttrTypeTextColor(),
             new AttrTypeTextStyle(),
             new AttrTypeTint(),
-            new AttrDrawLeft(),
-            new AttrDrawTop(),
-            new AttrDrawRight(),
-            new AttrDrawBottom()
+            new AttrDrawableLeft(),
+            new AttrDrawableTop(),
+            new AttrDrawableRight(),
+            new AttrDrawableBottom()
     );
     private static final HashMap<String, AttrType> attrTypeHashMap = new HashMap<>();
 
