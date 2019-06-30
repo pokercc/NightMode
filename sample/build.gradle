@@ -1,23 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '27.0.3'
+    compileSdkVersion 29
     defaultConfig {
-        applicationId "com.imooc.nigthmodel"
+        applicationId "pokercc.android.daynight.demo"
         minSdkVersion 14
-        targetSdkVersion 23
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
-    }
-
-    aaptOptions {
-        additionalParameters "--no-version-vectors"
-    }
-
-    aaptOptions {
-        additionalParameters "--no-version-vectors"
     }
 
     buildTypes {
@@ -36,7 +27,7 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.android.support:design:26.1.0'
+    compile 'androidx.appcompat:appcompat:1.0.2'
+    compile 'com.google.android.material:material:1.0.0'
     compile project(':nightmode')
 }

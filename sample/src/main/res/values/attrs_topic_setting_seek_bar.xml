@@ -1,0 +1,14 @@
+<resources>
+    <declare-styleable name="TopicSettingSeekBar">
+        <!--拇指大小,指的是半径-->
+        <attr name="thumb_size" format="dimension"/>
+        <!--拇指颜色-->
+        <attr name="thumb_color" format="color"/>
+        <!--线的颜色-->
+        <attr name="line_color" format="color"/>
+        <!--线的宽度-->
+        <attr name="line_width" format="dimension"/>
+        <!--头的大小,值的是半径-->
+        <attr name="point_size" format="dimension"/>
+    </declare-styleable>
+</resources>

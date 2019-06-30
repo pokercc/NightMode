@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="cn.like.sample.Main2Activity"
+    tools:context="cn.like.sample.pokercc.android.daynight.demo.Main2Activity"
     tools:showIn="@layout/activity_main2">
     <ImageView
         android:id="@+id/vector"
