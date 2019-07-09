@@ -10,13 +10,10 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 
 import androidx.annotation.ColorRes;
 import androidx.annotation.IntDef;
-
-import cn.like.sample.R;
 
 /**
  * 题库设置自定义view

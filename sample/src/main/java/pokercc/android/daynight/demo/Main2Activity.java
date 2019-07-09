@@ -1,10 +1,6 @@
 package pokercc.android.daynight.demo;
 
 import android.os.Bundle;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +8,14 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import cn.like.sample.R;
 
 public class Main2Activity extends AppCompatActivity {
 
@@ -69,7 +69,7 @@ public class Main2Activity extends AppCompatActivity {
             if (convertView == null) {
                 convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout, null);
             }
-            ((TextView)convertView).setText((CharSequence) getItem(position));
+            ((TextView) convertView).setText((CharSequence) getItem(position));
             return convertView;
         }
     }
