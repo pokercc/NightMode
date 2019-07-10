@@ -11,22 +11,25 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import pokercc.android.nightmodel.ModelChangeListener;
-import pokercc.android.nightmodel.NightModelManager;
+import pokercc.android.nightmodel.ActivityNightModelHelper;
+
 
 public class MainActivity extends AppCompatActivity {
 
+    private ActivityNightModelHelper activityNightModelHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        NightModelManager.getInstance().attach(this);
+        activityNightModelHelper = new ActivityNightModelHelper(this, R.style.AppTheme_NoActionBar, R.style.AppTheme_NoActionBar_Night);
+        activityNightModelHelper.onCreate();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -36,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 changeNightModel();
+//                setTheme(R.style.AppTheme_NoActionBar_Night);
+
             }
         });
         Button open = (Button) findViewById(R.id.open);
@@ -49,24 +54,21 @@ public class MainActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.list_view);
         listView.setAdapter(new SimpleAdapter());
 
-        NightModelManager.getInstance().addModelChangeListener(new ModelChangeListener() {
-            @Override
-            public void onChanged(boolean isNight) {
-                Toast.makeText(getApplicationContext(), isNight?"night":"day", Toast.LENGTH_SHORT).show();
-            }
-        });
+
+        setTitle("白天模式");
+
     }
+
 
     private void changeNightModel() {
-        if (NightModelManager.getInstance().isCurrentNightModel(this)) {
-            setTheme(R.style.AppTheme_NoActionBar);
-            NightModelManager.getInstance().applyDayModel(this);
+        if (activityNightModelHelper.isNightMode()) {
+            activityNightModelHelper.applyDayNight(false);
+            setTitle("白天模式");
         } else {
-            setTheme(R.style.AppTheme_NoActionBar_Night);
-            NightModelManager.getInstance().applyNightModel(this);
+            activityNightModelHelper.applyDayNight(true);
+            setTitle("夜间模式");
         }
     }
-
 
 
     @Override
@@ -91,17 +93,19 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onDestroy() {
-        NightModelManager.getInstance().detach(this);
-        super.onDestroy();
+    public void onShowDialogClick(View view) {
+        new AlertDialog.Builder(this)
+                .setTitle("今天下雨了吗？")
+                .setPositiveButton(android.R.string.ok, null)
+                .show();
     }
+
 
     private static class SimpleAdapter extends BaseAdapter {
         private List<String> list = new ArrayList<>();
 
         public SimpleAdapter() {
-            for (int i=0;i<50;i++) {
+            for (int i = 0; i < 50; i++) {
                 list.add("鹅鹅鹅");
                 list.add("曲项向天歌");
                 list.add("白毛浮绿水");
@@ -129,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
             if (convertView == null) {
                 convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout, parent, false);
             }
-            ((TextView)convertView).setText(getItem(position));
+            ((TextView) convertView).setText(getItem(position));
             return convertView;
         }
     }

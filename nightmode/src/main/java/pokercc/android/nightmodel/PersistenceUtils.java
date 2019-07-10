@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 /**
  * Created by like on 16/7/21.
  */
-class PersistenceUtils {
+public class PersistenceUtils {
 
     private static final String KEY_CURRENT_MODEL = "them_day_night";
 

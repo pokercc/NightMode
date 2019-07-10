@@ -26,7 +26,7 @@ import pokercc.android.nightmodel.attr.impl.AttrTypeTint;
 /**
  * Created by like on 16/7/21.
  */
-  class AttrUtils {
+class AttrUtils {
 
 
     private static final List<AttrType> ATTR_TYPES = Arrays.asList(
@@ -61,38 +61,33 @@ import pokercc.android.nightmodel.attr.impl.AttrTypeTint;
         return attrTypeHashMap.get(attrName);
     }
 
-    public static List<Attr> getNightModelAttr(Object[] args, Resources resources) {
-        List<Attr> nightModelAttrs = new ArrayList<>();
-        if (args != null && args.length > 0) {
-            for (Object obj : args) {
-                if (obj instanceof AttributeSet) {
-                    AttributeSet attrs = (AttributeSet) obj;
-                    for (int i = 0; i < attrs.getAttributeCount(); i++) {
-                        String attrName = attrs.getAttributeName(i);
-                        String attrValue = attrs.getAttributeValue(i);
-                        AttrType attrType = getSupportAttrType(attrName);
-                        if (attrType == null) continue;
-                        if (attrValue.startsWith("@")) {
-                            // 获取资源引用
-                            String resourceName;
-                            // 判断是style,还是int类型的资源引用
-                            if ("style".equals(attrType.getAttrType())) {
-                                resourceName = attrValue.substring(1);
-                            } else {
-                                resourceName = attrType.getIntResourceName(attrValue, resources);
-                            }
-                            Attr attr = new Attr(resourceName, attrType, false);
-                            nightModelAttrs.add(attr);
-                        } else if (attrValue.startsWith("?")) {
-                            // 获取?attr引用
-                            final String resourceName = attrValue.replace("?", "");
-                            Attr attr = new Attr(resourceName, attrType, true);
-                            nightModelAttrs.add(attr);
-                        }
-                    }
+
+    public static List<Attr> getNightModelAttr(AttributeSet attrs, Resources resources) {
+        final List<Attr> nightModelAttrs = new ArrayList<>();
+        for (int i = 0; i < attrs.getAttributeCount(); i++) {
+            String attrName = attrs.getAttributeName(i);
+            String attrValue = attrs.getAttributeValue(i);
+            AttrType attrType = getSupportAttrType(attrName);
+            if (attrType == null) continue;
+            if (attrValue.startsWith("@")) {
+                // 获取资源引用
+                String resourceName;
+                // 判断是style,还是int类型的资源引用
+                if ("style".equals(attrType.getAttrType())) {
+                    resourceName = attrValue.substring(1);
+                } else {
+                    resourceName = attrType.getIntResourceName(attrValue, resources);
                 }
+                Attr attr = new Attr(resourceName, attrType, false);
+                nightModelAttrs.add(attr);
+            } else if (attrValue.startsWith("?")) {
+                // 获取?attr引用
+                final String resourceName = attrValue.replace("?", "");
+                Attr attr = new Attr(resourceName, attrType, true);
+                nightModelAttrs.add(attr);
             }
         }
+
         return nightModelAttrs;
     }
 
