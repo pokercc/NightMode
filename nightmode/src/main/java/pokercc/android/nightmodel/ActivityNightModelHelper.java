@@ -60,7 +60,7 @@ public class ActivityNightModelHelper {
         AppCompatDelegate delegate = appCompatActivity.getDelegate();
         if (delegate instanceof LayoutInflater.Factory2) {
             LayoutInflater.Factory2 originInflaterFactory = (LayoutInflater.Factory2) delegate;
-            ViewAttrRecorderLayoutInflater factory = new ViewAttrRecorderLayoutInflater(originInflaterFactory, appCompatActivity.getResources());
+            ViewAttrRecorderLayoutInflater factory = new ViewAttrRecorderLayoutInflater(appCompatActivity, originInflaterFactory);
             LayoutInflaterCompat.setFactory2(defaultLayoutInflater, factory);
             addModelChangeListener(new WeakRefChangeListener(factory));
         }

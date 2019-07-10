@@ -39,7 +39,7 @@ public class NightModelManager {
         final LayoutInflater defaultLayoutInflater = LayoutInflater.from(activity);
         if (activity.getDelegate() instanceof LayoutInflater.Factory2) {
             LayoutInflater.Factory2 originInflaterFactory = (LayoutInflater.Factory2) activity.getDelegate();
-            ViewAttrRecorderLayoutInflater factory = new ViewAttrRecorderLayoutInflater(originInflaterFactory, activity.getResources());
+            ViewAttrRecorderLayoutInflater factory = new ViewAttrRecorderLayoutInflater(activity, originInflaterFactory);
             LayoutInflaterCompat.setFactory2(defaultLayoutInflater, factory);
             ModelChangeManager.getInstance().addListener(new WeakRefChangeListener(factory));
         }

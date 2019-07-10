@@ -69,6 +69,7 @@ class AttrUtils {
             String attrValue = attrs.getAttributeValue(i);
             AttrType attrType = getSupportAttrType(attrName);
             if (attrType == null) continue;
+            Attr attr = null;
             if (attrValue.startsWith("@")) {
                 // 获取资源引用
                 String resourceName;
@@ -78,12 +79,13 @@ class AttrUtils {
                 } else {
                     resourceName = attrType.getIntResourceName(attrValue, resources);
                 }
-                Attr attr = new Attr(resourceName, attrType, false);
-                nightModelAttrs.add(attr);
+                attr = new Attr(resourceName, attrType, false);
             } else if (attrValue.startsWith("?")) {
                 // 获取?attr引用
                 final String resourceName = attrValue.replace("?", "");
-                Attr attr = new Attr(resourceName, attrType, true);
+                attr = new Attr(resourceName, attrType, true);
+            }
+            if (attr != null) {
                 nightModelAttrs.add(attr);
             }
         }
