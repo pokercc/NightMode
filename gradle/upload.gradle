@@ -1,0 +1,18 @@
+//脚本：将Lib打成aar包上传至maven私有库
+apply plugin: 'maven'
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: MAVEN_REPOSITORY) {
+                authentication(userName: MAVEN_ACCOUNT, password: MAVEN_PASSWORD)
+            }
+            pom.project {
+                groupId MAVEN_GROUPID
+                artifactId MAVEN_ARTIFACTID
+                version MAVEN_VERSION
+                packaging 'aar'
+            }
+        }
+    }
+}

@@ -31,17 +31,18 @@ public class ActivityNightModelHelper {
 
     private final AppCompatActivity appCompatActivity;
     private final List<ModelChangeListener> modelChangeListeners = new ArrayList<>();
-    private DayNightModePreference dayNightModePreference = DayNightModePreference.DEFAULT;
+    private final DayNightModePreference dayNightModePreference;
     @StyleRes
     private final int nightTheme, dayTheme;
 
     public ActivityNightModelHelper(AppCompatActivity appCompatActivity, int dayTheme, int nightTheme) {
+        this(appCompatActivity, dayTheme, nightTheme, DayNightModePreference.DEFAULT);
+    }
+
+    public ActivityNightModelHelper(AppCompatActivity appCompatActivity, int dayTheme, int nightTheme, DayNightModePreference dayNightModePreference) {
         this.appCompatActivity = appCompatActivity;
         this.nightTheme = nightTheme;
         this.dayTheme = dayTheme;
-    }
-
-    public void setDayNightModePreference(@NonNull DayNightModePreference dayNightModePreference) {
         this.dayNightModePreference = dayNightModePreference;
     }
 
