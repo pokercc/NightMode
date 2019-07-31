@@ -3,16 +3,21 @@ package pokercc.android.nightmodel;
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.AttributeSet;
+import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import androidx.collection.ArrayMap;
+
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import pokercc.android.nightmodel.attr.Attr;
 import pokercc.android.nightmodel.attr.AttrView;
 
-class ViewAttrRecorderLayoutInflater extends LayoutInflater implements LayoutInflater.Factory2, ModelChangeListener {
+class ViewAttrRecorderLayoutInflater implements LayoutInflater.Factory2, ModelChangeListener {
 
 
     private final LayoutInflater.Factory2 originFactory2;
@@ -20,9 +25,15 @@ class ViewAttrRecorderLayoutInflater extends LayoutInflater implements LayoutInf
 
     private final List<AttrView> attrViews = new ArrayList<>();
 
+    private static final Map<String, Constructor<? extends View>> sConstructorMap
+            = new ArrayMap<>();
+    private final Object[] mConstructorArgs = new Object[2];
+    private static final Class<?>[] sConstructorSignature = new Class[]{
+            Context.class, AttributeSet.class};
+
 
     ViewAttrRecorderLayoutInflater(Context context, LayoutInflater.Factory2 originFactory2) {
-        super(context);
+
         this.originFactory2 = originFactory2;
         this.resources = context.getResources();
     }
@@ -30,30 +41,20 @@ class ViewAttrRecorderLayoutInflater extends LayoutInflater implements LayoutInf
 
     @Override
     public View onCreateView(View view, String s, Context context, AttributeSet attributeSet) {
-        View result = originFactory2.onCreateView(view, s, context, attributeSet);
-        if (result == null) {
-            try {
-                // 需要用系统的兜底，AppcompatLayoutInflater 只创建它需要的
-                result = onCreateView(view, s, attributeSet);
-            } catch (ClassNotFoundException e) {
-            }
-        }
-        recordViewAttr(result, attributeSet);
-        return result;
+        return onCreateView(s, context, attributeSet);
     }
 
     @Override
     public View onCreateView(String s, Context context, AttributeSet attributeSet) {
         View view = originFactory2.onCreateView(s, context, attributeSet);
         if (view == null) {
-            try {
-                // 需要用系统的兜底，AppcompatLayoutInflater 只创建它需要的
-                view = onCreateView(s, attributeSet);
-            } catch (ClassNotFoundException e) {
-            }
+            // AppcompatLayoutInflater 只创建它需要的
+            // 系统的LayoutInflater 在android 23以下有bug，缺少context
+            view = createViewFromTag(context, s, attributeSet);
         }
-        recordViewAttr(view, attributeSet);
-
+        if (view != null) {
+            recordViewAttr(view, attributeSet);
+        }
         return view;
     }
 
@@ -80,37 +81,52 @@ class ViewAttrRecorderLayoutInflater extends LayoutInflater implements LayoutInf
         }
     }
 
-    @Override
-    public LayoutInflater cloneInContext(Context newContext) {
-        return this;
-    }
 
 
-    private static final String[] sClassPrefixList = {
-            "android.widget.",
-            "android.webkit.",
-            "android.app."
-    };
-    /**
-     *
-     * copy from @{@link com.android.internal.policy.PhoneLayoutInflater}
-     */
-    @Override
-    protected View onCreateView(String name, AttributeSet attrs) throws ClassNotFoundException {
-        for (String prefix : sClassPrefixList) {
-            try {
-                View view = createView(name, prefix, attrs);
-                if (view != null) {
-                    return view;
-                }
-            } catch (ClassNotFoundException e) {
-                // In this case we want to let the base class take a crack
-                // at it.
-            }
+
+    private View createViewFromTag(Context context, String name, AttributeSet attrs) {
+        if (name.equals("view")) {
+            name = attrs.getAttributeValue(null, "class");
         }
 
-        return super.onCreateView(name, attrs);
+        try {
+            mConstructorArgs[0] = context;
+            mConstructorArgs[1] = attrs;
+
+            if (-1 == name.indexOf('.')) {
+                // try the android.widget prefix first...
+                return createView(context, name, "android.widget.");
+            } else {
+                return createView(context, name, null);
+            }
+        } catch (Exception e) {
+            // We do not want to catch these, lets return null and let the actual LayoutInflater
+            // try
+            return null;
+        } finally {
+            // Don't retain references on context.
+            mConstructorArgs[0] = null;
+            mConstructorArgs[1] = null;
+        }
     }
 
+    private View createView(Context context, String name, String prefix)
+            throws ClassNotFoundException, InflateException {
+        Constructor<? extends View> constructor = sConstructorMap.get(name);
+
+        try {
+            if (constructor == null) {
+                Class<? extends View> clazz = context.getClassLoader().loadClass(
+                        prefix != null ? (prefix + name) : name).asSubclass(View.class);
+
+                constructor = clazz.getConstructor(sConstructorSignature);
+                sConstructorMap.put(name, constructor);
+            }
+            constructor.setAccessible(true);
+            return constructor.newInstance(mConstructorArgs);
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
 }
